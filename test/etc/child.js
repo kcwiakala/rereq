@@ -1,0 +1,1 @@
+const grandchild = require('./grandchild');

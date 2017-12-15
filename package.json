@@ -1,0 +1,22 @@
+{
+  "name": "rerequire",
+  "version": "0.1.0",
+  "description": "Extension of require functionality for test development",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "require",
+    "cache",
+    "test",
+    "unit",
+    "test"
+  ],
+  "author": "kcwiakala",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
+  }
+}
