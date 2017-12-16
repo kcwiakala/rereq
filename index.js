@@ -42,10 +42,7 @@ function shallowClean(moduleName) {
 
 function callerPath() {
   const prepareStackTrace = Error.prepareStackTrace;
-  Error.prepareStackTrace = (_, stack) => {
-    console.log(_, stack);
-    return stack;
-  }
+  Error.prepareStackTrace = (_, stack) => stack;
   const err = new Error();
   Error.captureStackTrace(err, arguments.callee);
   const stack = err.stack;
