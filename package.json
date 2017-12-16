@@ -1,5 +1,5 @@
 {
-  "name": "rerequire",
+  "name": "rereq",
   "version": "0.1.0",
   "description": "Extension of require functionality for test development",
   "main": "index.js",

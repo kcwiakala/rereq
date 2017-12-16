@@ -1,0 +1,1 @@
+Wrapper for require function for test environment.
