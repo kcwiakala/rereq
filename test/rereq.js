@@ -1,14 +1,24 @@
 
-const rerequire = require('../index');
+const rereq = require('../index');
 const expect = require('chai').expect;
 
-function clearCache() {
-  for(let m in require.cache) {
-    delete require.cache[m];
-  }
-}
-
 describe('rerequire', () => {
+
+  let cache = null;
+
+  beforeEach(() => {
+    cache = {};
+    for(let m in require.cache) {
+      cache[m] = require.cache[m];
+      delete require.cache[m];
+    }
+  });
+
+  afterEach(() => {
+    for(let m in cache) {
+      require.cache[m] = cache[m];
+    }
+  });
 
   describe('deep', () => {
 
@@ -18,7 +28,7 @@ describe('rerequire', () => {
 
       let oldGrandchild = require('./etc/grandchild');
       let oldChild = require('./etc/child');
-      let newChild = rerequire('./etc/child');
+      let newChild = rereq('./etc/child');
 
       expect(oldChild).to.be.equal(child);
       expect(newChild).not.to.be.equal(child);

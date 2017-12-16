@@ -23,8 +23,11 @@ function deepClean(moduleName) {
 }
 
 function shallowClean(moduleName) {
+  moduleName = require.resolve(moduleName);
+  const root = require.cache[moduleName];
+
   let dependencies = [];
-  let stack = [require.resolve(moduleName)];
+  let stack = [moduleName];
 
   while(stack.length > 0) {
     const v = stack.pop();
@@ -37,6 +40,14 @@ function shallowClean(moduleName) {
   
   for(let i in dependencies) {
     delete require.cache[dependencies[i]];
+  }
+
+  if(root.parent) {
+    for(let i in root.parent.children) {
+      if(root.parent.children[i] === root) {
+        root.parent.children.splice(i,1);
+      }
+    }
   }
 }
 
