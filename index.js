@@ -16,8 +16,10 @@ function deepClean(moduleName) {
   const dependencies = move(require.cache);
 
   for(let key in original) {
-    if(!key in dependencies) {
-      require.cache[key] = original[key];
+    if(!(key in dependencies)) {
+      let m = original[key];
+      m.children = m.children.filter(child => !(child in dependencies));
+      require.cache[key] = m;
     }
   }
 }
@@ -43,10 +45,9 @@ function shallowClean(moduleName) {
   }
 
   if(root.parent) {
-    for(let i in root.parent.children) {
-      if(root.parent.children[i] === root) {
-        root.parent.children.splice(i,1);
-      }
+    let idx = root.parent.children.find(child => child === root);
+    if(idx >= 0) {
+      root.parent.children.splice(idx, 1);
     }
   }
 }
